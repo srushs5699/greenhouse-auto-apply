@@ -44,6 +44,13 @@
       "LangChain", "LLM", "vector search", "pgvector", "Pinecone", "OpenAI API",
       "event-driven", "Spring Boot", "Kubernetes", "Python", "Java", "Go"
     ],
+    "title_exclude_keywords": [
+      "sales", "trader", "trading", "account executive", "business development",
+      "product manager", "program manager", "project manager", "marketing",
+      "recruiter", "recruiting", "talent acquisition", "customer success",
+      "support specialist", "designer", "counsel", "attorney", "paralegal",
+      "hr business partner", "people partner", "executive assistant", "office manager"
+    ],
     "min_years_experience": 1,
     "max_years_experience": 4,
     "match_mode": "title_or_description",

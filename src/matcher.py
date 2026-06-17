@@ -12,6 +12,22 @@ _TAG_RE = re.compile(r"<[^>]+>")
 # Looks for patterns like "3+ years", "2-4 years", "minimum of 5 years"
 _YEARS_RE = re.compile(r"(\d+)\s*\+?\s*(?:-\s*(\d+)\s*)?\s*years?", re.IGNORECASE)
 
+# Titles containing any of these are rejected outright, regardless of description
+# content - a sales or PM job description can easily mention "Python" or "platform"
+# once in passing without the role itself being engineering.
+DEFAULT_TITLE_EXCLUDES = [
+    "sales", "trader", "trading", "account executive", "business development",
+    "product manager", "program manager", "project manager", "marketing",
+    "recruiter", "recruiting", "talent acquisition", "customer success",
+    "support specialist", "designer", "counsel", "attorney", "paralegal",
+    "hr business partner", "people partner", "executive assistant", "office manager",
+]
+
+# When the title alone doesn't clearly indicate an engineering role, require at
+# least this many distinct signal keywords in the description before matching -
+# a single incidental mention isn't enough signal on its own.
+MIN_DESCRIPTION_SIGNAL_HITS = 2
+
 
 def strip_html(raw_html: str) -> str:
     return unescape(_TAG_RE.sub(" ", raw_html or ""))
@@ -38,17 +54,25 @@ def matches_role(job: dict, targeting: dict) -> bool:
     title = (job.get("title") or "").lower()
     description = strip_html(job.get("content", "")).lower()
 
+    exclude_keywords = [k.lower() for k in targeting.get("title_exclude_keywords", DEFAULT_TITLE_EXCLUDES)]
+    if any(k in title for k in exclude_keywords):
+        return False
+
     role_keywords = [k.lower() for k in targeting.get("role_keywords", [])]
     signal_keywords = [k.lower() for k in targeting.get("signal_keywords_in_description", [])]
     mode = targeting.get("match_mode", "title_or_description")
 
     title_hit = any(k in title for k in role_keywords)
-    description_hit = any(k in description for k in signal_keywords)
 
     if mode == "title_only":
         keyword_match = title_hit
-    else:  # title_or_description - generic titles like "Software Engineer II" still match on signals
-        keyword_match = title_hit or description_hit
+    elif title_hit:
+        keyword_match = True
+    else:
+        # No clear engineering title - require multiple distinct signal hits,
+        # not just one incidental mention, before treating this as a match.
+        signal_hit_count = sum(1 for k in signal_keywords if k in description)
+        keyword_match = signal_hit_count >= MIN_DESCRIPTION_SIGNAL_HITS
 
     if not keyword_match:
         return False

@@ -33,6 +33,7 @@ def load_json(relative_path: str) -> dict:
 
 def collect_matches(companies: dict, targeting: dict) -> list[tuple[str, dict]]:
     matches = []
+    seen_this_run = set()  # guards against duplicate entries within a single fetch (seen in the wild with Instacart)
 
     for board_token in companies.get("greenhouse", []):
         jobs = fetch_greenhouse_jobs(board_token)
@@ -40,8 +41,10 @@ def collect_matches(companies: dict, targeting: dict) -> list[tuple[str, dict]]:
             print(f"[main] Skipping greenhouse:'{board_token}' - board did not resolve.")
             continue
         for job in filter_jobs(jobs, targeting):
-            if already_processed(board_token, job["id"]):
+            key = (board_token, job["id"])
+            if key in seen_this_run or already_processed(board_token, job["id"]):
                 continue
+            seen_this_run.add(key)
             job["company_name"] = board_token
             job["source"] = "greenhouse"
             matches.append((board_token, job))
@@ -53,8 +56,10 @@ def collect_matches(companies: dict, targeting: dict) -> list[tuple[str, dict]]:
             continue
         normalized = [normalize_ashby_job(board_name, j) for j in raw_jobs]
         for job in filter_jobs(normalized, targeting):
-            if already_processed(board_name, job["id"]):
+            key = (board_name, job["id"])
+            if key in seen_this_run or already_processed(board_name, job["id"]):
                 continue
+            seen_this_run.add(key)
             matches.append((board_name, job))
 
     return matches
