@@ -1,6 +1,6 @@
 {
-  "_comment": "board_token is the slug in job-boards.greenhouse.io/{board_token} or boards.greenhouse.io/{board_token}. Run validate_boards.py to check which of these resolve - invalid ones get logged to data/invalid_boards.json so you can remove/replace them.",
-  "companies": [
+  "_comment": "Two separate lists since each ATS has its own token namespace. Run validate_boards.py to check both. The discover.py script (run on a separate schedule) grows these automatically.",
+  "greenhouse": [
     "anthropic",
     "stripe",
     "airbnb",
@@ -9,19 +9,18 @@
     "gitlab",
     "robinhood",
     "scaleai",
-    "notion",
-    "perplexityai",
-    "pinecone",
-    "huggingface",
-    "cohere",
-    "plaid",
     "coinbase",
     "brex",
-    "ramp",
     "affirm",
-    "rippling",
-    "doordash",
     "instacart",
     "asana"
+  ],
+  "ashby": [
+    "notion",
+    "perplexityai",
+    "cohere",
+    "ramp",
+    "linear",
+    "replit"
   ]
 }

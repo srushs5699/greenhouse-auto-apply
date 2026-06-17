@@ -1,6 +1,8 @@
 """
 main.py
 Entry point - run hourly (via cron, Task Scheduler, or GitHub Actions).
+Covers both Greenhouse and Ashby boards listed in config/companies.json
+(discover.py grows that list automatically on its own schedule).
 
 Usage:
     python src/main.py            # uses dry_run setting from config
@@ -13,7 +15,8 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from greenhouse_client import fetch_jobs  # noqa: E402
+from greenhouse_client import fetch_jobs as fetch_greenhouse_jobs  # noqa: E402
+from ashby_client import fetch_jobs as fetch_ashby_jobs, normalize_job as normalize_ashby_job  # noqa: E402
 from matcher import filter_jobs  # noqa: E402
 from state import already_processed, record  # noqa: E402
 from form_filler import apply_to_job  # noqa: E402
@@ -28,26 +31,44 @@ def load_json(relative_path: str) -> dict:
         return json.load(f)
 
 
-def main(dry_run_override: bool | None):
-    profile = load_json("config/candidate_profile.json")
-    companies = load_json("config/companies.json")["companies"]
-    targeting = profile["targeting"]
+def collect_matches(companies: dict, targeting: dict) -> list[tuple[str, dict]]:
+    matches = []
 
-    dry_run = dry_run_override if dry_run_override is not None else profile.get("dry_run", True)
-    print(f"[main] Running with dry_run={dry_run}")
-
-    new_matches = []
-    for board_token in companies:
-        jobs = fetch_jobs(board_token)
+    for board_token in companies.get("greenhouse", []):
+        jobs = fetch_greenhouse_jobs(board_token)
         if jobs is None:
-            print(f"[main] Skipping '{board_token}' - board did not resolve. Run validate_boards.py.")
+            print(f"[main] Skipping greenhouse:'{board_token}' - board did not resolve.")
             continue
         for job in filter_jobs(jobs, targeting):
             if already_processed(board_token, job["id"]):
                 continue
             job["company_name"] = board_token
-            new_matches.append((board_token, job))
+            job["source"] = "greenhouse"
+            matches.append((board_token, job))
 
+    for board_name in companies.get("ashby", []):
+        raw_jobs = fetch_ashby_jobs(board_name)
+        if raw_jobs is None:
+            print(f"[main] Skipping ashby:'{board_name}' - board did not resolve.")
+            continue
+        normalized = [normalize_ashby_job(board_name, j) for j in raw_jobs]
+        for job in filter_jobs(normalized, targeting):
+            if already_processed(board_name, job["id"]):
+                continue
+            matches.append((board_name, job))
+
+    return matches
+
+
+def main(dry_run_override):
+    profile = load_json("config/candidate_profile.json")
+    companies = load_json("config/companies.json")
+    targeting = profile["targeting"]
+
+    dry_run = dry_run_override if dry_run_override is not None else profile.get("dry_run", True)
+    print(f"[main] Running with dry_run={dry_run}")
+
+    new_matches = collect_matches(companies, targeting)
     print(f"[main] {len(new_matches)} new matching posting(s) found.")
 
     results = []
