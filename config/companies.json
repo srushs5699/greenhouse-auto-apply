@@ -1,5 +1,5 @@
 {
-  "_comment": "Two separate lists since each ATS has its own token namespace. Run validate_boards.py to check both. The discover.py script (run on a separate schedule) grows these automatically.",
+  "_comment": "Two separate lists since each ATS has its own token namespace. Run validate_boards.py to check both. Growing this list is now a manual/on-demand process - just ask Claude in chat to research more companies periodically.",
   "greenhouse": [
     "anthropic",
     "stripe",
@@ -13,7 +13,11 @@
     "brex",
     "affirm",
     "instacart",
-    "asana"
+    "asana",
+    "gleanwork",
+    "harnessinc",
+    "vestwell",
+    "avride"
   ],
   "ashby": [
     "notion",
@@ -21,6 +25,13 @@
     "cohere",
     "ramp",
     "linear",
-    "replit"
+    "replit",
+    "openai",
+    "sentilink",
+    "alembic",
+    "compa",
+    "prosper-ai",
+    "curie",
+    "chestnut"
   ]
 }

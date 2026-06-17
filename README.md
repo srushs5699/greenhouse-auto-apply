@@ -9,11 +9,14 @@ application form, and (once you trust it) submits automatically.
 - **Greenhouse and Ashby only.** Indeed and LinkedIn require login and aggressively
   block automation; this pipeline deliberately avoids both. It only works against
   companies that host their careers page on one of these two ATSs.
-- **Auto-discovery finds companies, not a global job search.** `discover.py` uses
-  Google Custom Search to find new Greenhouse/Ashby boards matching your target
-  roles and adds them to `config/companies.json` automatically. This gets you
-  close to "every company Google has indexed on these platforms," but it's bounded
-  by Google's index and free search quota - not literally every company everywhere.
+- **Auto-discovery is free and automatic again.** After Google Custom Search (closed
+  to new users) and Brave (now paid) turned out to be dead ends, `src/discover_via_hn.py`
+  uses the free, public Hacker News Algolia Search API to scan the monthly "Who is
+  hiring?" thread for new Greenhouse/Ashby company links. No API key, no signup,
+  no cost. It's bounded by what's posted in that thread rather than being a
+  universal search, but those threads are dense with real startups/tech companies
+  posting real ATS links, so it's a solid free source. You can still also just ask
+  Claude in chat to research more companies anytime, on top of this.
 - **Form structure varies slightly per company.** The filler matches fields by
   visible label text, which is fairly robust, but some companies' forms (custom
   questions, file upload quirks, occasional CAPTCHA) may not be fillable
@@ -44,19 +47,12 @@ application form, and (once you trust it) submits automatically.
      - `GMAIL_USER` = your Gmail address
      - `GMAIL_APP_PASSWORD` = the app password (not your normal Gmail password)
 
-5. **Set up auto-discovery (Google Custom Search API, free tier):**
-   - Go to console.cloud.google.com, create a project (or use an existing one)
-   - Enable the "Custom Search API" under APIs & Services -> Library
-   - Create an API key under APIs & Services -> Credentials
-   - Go to programmablesearchengine.google.com, create a new search engine,
-     set it to "Search the entire web," and copy its Search Engine ID (cx)
-   - Add both as GitHub repo secrets: `GOOGLE_API_KEY` and `GOOGLE_CSE_ID`
-   - Free tier is 100 queries/day; the included schedule (every 6 hours, ~8
-     queries per run) uses about 32/day, leaving headroom
+5. **Discovery just works, no setup needed.** `discover-companies.yml` runs once
+   a day automatically once Actions is enabled - no keys, no secrets, no cost.
 
 6. **Enable GitHub Actions** for the repo (Settings -> Actions -> Allow all actions).
-   Two workflows will then run automatically: the hourly apply pipeline, and
-   the discovery job every 6 hours that grows `config/companies.json`.
+   Both workflows will then run automatically (hourly apply, daily discovery),
+   and you can also trigger either manually from the Actions tab.
 
 ## Testing locally before trusting it live
 
@@ -88,15 +84,15 @@ Edit `config/candidate_profile.json` -> `targeting`:
 ## Files
 
 - `config/candidate_profile.json` - your info, screening answers, targeting rules
-- `config/companies.json` - Greenhouse and Ashby boards to monitor (auto-grown by discover.py)
+- `config/companies.json` - Greenhouse and Ashby boards to monitor (grow this on demand by asking Claude)
 - `src/greenhouse_client.py` - reads the public Greenhouse API
 - `src/ashby_client.py` - reads the public Ashby API, normalizes to a common job shape
-- `src/google_search.py` - free Google Custom Search API wrapper, used for discovery
-- `src/discover.py` - finds new company boards matching your target roles, validates and adds them
 - `src/matcher.py` - recency + relevance filtering (works on the normalized job shape from either ATS)
 - `src/form_filler.py` - Playwright form filling/submission
 - `src/state.py` - tracks what's already been applied to (persisted via git commit in CI)
 - `src/notifier.py` - email summary after each run
 - `src/main.py` - orchestrates all of the above
+- `src/validate_boards.py` - checks which companies.json tokens actually resolve
+- `src/discover_via_hn.py` - free automated discovery via the HN "Who is hiring?" thread
 - `.github/workflows/hourly-apply.yml` - the hourly apply schedule
-- `.github/workflows/discover-companies.yml` - the every-6-hours discovery schedule
+- `.github/workflows/discover-companies.yml` - daily discovery schedule (free, no setup needed)
