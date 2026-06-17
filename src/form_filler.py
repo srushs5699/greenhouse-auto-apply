@@ -67,29 +67,46 @@ def _try_fill_ashby_systemfield(page: Page, selector: str, value: str) -> bool:
     return False
 
 
-def _try_upload_resume(page: Page, resume_path: str) -> bool:
+def _try_upload_resume(page: Page, resume_path: str) -> tuple[bool, str]:
     """
     Try Ashby's named resume field first (works even when it's wrapped in a
     drag-and-drop UI, since the underlying <input type="file"> still accepts
     set_input_files directly regardless of how it's styled). Falls back to
     the first generic file input on the page (the Greenhouse pattern, where
     resume is virtually always the first file input).
+
+    Returns (success, detail) - detail explains *why* on failure, since a
+    silent resume-upload failure is costly (it blocks every single
+    application, not just one edge-case question) and the previous version
+    swallowed the real exception entirely, making this impossible to debug
+    from flagged output alone.
     """
+    import os
+    if not os.path.isfile(resume_path):
+        cwd = os.getcwd()
+        return False, f"resume_path '{resume_path}' does not exist (cwd={cwd})"
+
+    last_error = None
     try:
         ashby_resume = page.locator(ASHBY_SYSTEMFIELD_SELECTORS["resume"])
         if ashby_resume.count() > 0:
             ashby_resume.first.set_input_files(resume_path)
-            return True
-    except Exception:
-        pass
+            return True, "uploaded via Ashby systemfield selector"
+    except Exception as e:
+        last_error = f"Ashby selector attempt failed: {e}"
+
     try:
         file_inputs = page.locator('input[type="file"]')
-        if file_inputs.count() > 0:
+        count = file_inputs.count()
+        if count > 0:
             file_inputs.first.set_input_files(resume_path)
-            return True
-    except Exception:
-        pass
-    return False
+            return True, "uploaded via generic file input"
+        else:
+            last_error = f"no input[type=file] found on page (Ashby attempt: {last_error})"
+    except Exception as e:
+        last_error = f"generic file input attempt failed: {e} (Ashby attempt: {last_error})"
+
+    return False, last_error or "unknown failure"
 
 
 def _try_answer_yes_no_buttons(page: Page, label_text: str, answer: str) -> bool:
@@ -237,6 +254,9 @@ def apply_to_job(browser, job: dict, profile: dict, dry_run: bool = True) -> dic
     unmatched_required = []
 
     page = browser.new_page()
+    page.set_default_timeout(30000)  # caps every Playwright action at 30s so a single
+    # stuck selector/overlay/iframe can't silently hang the whole run - it'll raise
+    # and get caught by the except block below instead, recorded as 'failed'.
     try:
         page.goto(job["absolute_url"], timeout=30000)
 
@@ -259,8 +279,9 @@ def apply_to_job(browser, job: dict, profile: dict, dry_run: bool = True) -> dic
 
         # Resume upload - tries Ashby's named field first, then falls back to
         # the first generic file input (the Greenhouse pattern).
-        if not _try_upload_resume(page, personal["resume_path"]):
-            unmatched_required.append("resume_upload_failed")
+        resume_ok, resume_detail = _try_upload_resume(page, personal["resume_path"])
+        if not resume_ok:
+            unmatched_required.append(f"resume_upload_failed: {resume_detail}")
 
         # Cover letter (templated, lightly customized)
         cover_letter_text = profile["cover_letter"]["template"].format(

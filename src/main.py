@@ -14,6 +14,15 @@ import json
 import os
 import sys
 
+# Force stdout to flush immediately after every print. In CI environments
+# stdout often isn't a real terminal, so Python may buffer output rather
+# than writing it line-by-line - this can make a running job look "stuck"
+# in the Actions log even when print statements have already executed,
+# since nothing shows up until the buffer flushes (often only at process
+# exit). Forcing line buffering here means log output always reflects
+# what's actually happened so far.
+sys.stdout.reconfigure(line_buffering=True)
+
 sys.path.insert(0, os.path.dirname(__file__))
 from greenhouse_client import fetch_jobs as fetch_greenhouse_jobs  # noqa: E402
 from ashby_client import fetch_jobs as fetch_ashby_jobs, normalize_job as normalize_ashby_job  # noqa: E402
@@ -79,7 +88,15 @@ def main(dry_run_override):
     results = []
     if new_matches:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
+            # Explicit timeout (default would otherwise be Playwright's
+            # internal default, ~30s for most operations, but launch()
+            # itself can hang longer on a misconfigured CI runner if
+            # required system libraries are missing - bound it explicitly
+            # so a launch failure raises a clear, fast error instead of
+            # silently blocking the whole run with no output.
+            print("[main] Launching browser...")
+            browser = p.chromium.launch(headless=True, timeout=60000)
+            print("[main] Browser launched successfully.")
             for board_token, job in new_matches:
                 result = apply_to_job(browser, job, profile, dry_run=dry_run)
                 record(board_token, job["id"], job["title"], result["status"], result["detail"])

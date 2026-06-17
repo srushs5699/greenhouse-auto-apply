@@ -22,5 +22,437 @@
     "status": "dry_run_preview",
     "detail": "Form filled, submit NOT clicked (dry_run=True).",
     "timestamp": "2026-06-17T22:12:20.356370+00:00"
+  },
+  "gitlab:8592891002": {
+    "company": "gitlab",
+    "job_id": 8592891002,
+    "title": "Engineering Manager, Growth",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: ['unknown_field']",
+    "timestamp": "2026-06-17T22:20:15.313190+00:00"
+  },
+  "gitlab:8591221002": {
+    "company": "gitlab",
+    "job_id": 8591221002,
+    "title": "Senior Solutions Architect, Global SI (India)",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: ['unknown_field']",
+    "timestamp": "2026-06-17T22:20:15.842979+00:00"
+  },
+  "anthropic:5254364008": {
+    "company": "anthropic",
+    "job_id": 5254364008,
+    "title": "Research Engineer, Code RL (Reinforcement Learning)",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='(Optional) Personal Preferences*\\n\\nHow do you pronounce your name?\\n\\nLinkedIn Profile\\n\\nPlease ensure to provide either you')\"]",
+    "timestamp": "2026-06-17T22:33:54.035267+00:00"
+  },
+  "anthropic:5252342008": {
+    "company": "anthropic",
+    "job_id": 5252342008,
+    "title": "Senior/Staff Security Engineer, Threat Intelligence",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='(Optional) Personal Preferences\\n\\nHow do you pronounce your name?\\n\\nWebsite\\nAre you open to working in-person in one of ou')\"]",
+    "timestamp": "2026-06-17T22:33:55.591549+00:00"
+  },
+  "anthropic:5254803008": {
+    "company": "anthropic",
+    "job_id": 5254803008,
+    "title": "Staff+ Software Engineer, Developer Productivity",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='LinkedIn Profile\\nWebsite\\n(Optional) Personal Preferences\\n\\nHow do you pronounce your name?\\n\\nWebsite\\nAre you open to worki')\"]",
+    "timestamp": "2026-06-17T22:34:00.127502+00:00"
+  },
+  "anthropic:5257669008": {
+    "company": "anthropic",
+    "job_id": 5257669008,
+    "title": "Web Producer, CMS Publishing",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='(Optional) Personal Preferences\\n\\nHow do you pronounce your name?\\n\\nWebsite\\nAre you open to working in-person in one of ou')\"]",
+    "timestamp": "2026-06-17T22:34:01.648486+00:00"
+  },
+  "stripe:7991791": {
+    "company": "stripe",
+    "job_id": 7991791,
+    "title": "Bridge - Operations Associate, Financial Crimes (AML Investigations)",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:03.028965+00:00"
+  },
+  "stripe:8009604": {
+    "company": "stripe",
+    "job_id": 8009604,
+    "title": "Forward Deployed Integration Engineer, Professional Services",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:04.509639+00:00"
+  },
+  "stripe:7994541": {
+    "company": "stripe",
+    "job_id": 7994541,
+    "title": "Fraud Operations Manager (Mandarin-speaking)",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:05.959500+00:00"
+  },
+  "stripe:8003382": {
+    "company": "stripe",
+    "job_id": 8003382,
+    "title": "Full-Stack Engineer",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:07.398113+00:00"
+  },
+  "stripe:7992740": {
+    "company": "stripe",
+    "job_id": 7992740,
+    "title": "Integration Engineer, Professional Services (French fluency)",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:08.593598+00:00"
+  },
+  "stripe:7997826": {
+    "company": "stripe",
+    "job_id": 7997826,
+    "title": "Internal Audit Lead, Stablecoins & Digital Assets",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:09.942996+00:00"
+  },
+  "stripe:7994384": {
+    "company": "stripe",
+    "job_id": 7994384,
+    "title": "Risk Operations Analyst (Mandarin Speaking)",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:11.207611+00:00"
+  },
+  "stripe:8009143": {
+    "company": "stripe",
+    "job_id": 8009143,
+    "title": "Software Engineer",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:12.509496+00:00"
+  },
+  "stripe:7975725": {
+    "company": "stripe",
+    "job_id": 7975725,
+    "title": "Software Engineer, Core Infrastructure",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:13.611215+00:00"
+  },
+  "stripe:7991718": {
+    "company": "stripe",
+    "job_id": 7991718,
+    "title": "Software Engineer, New Grad, Developer & End User Experience Platform",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:15.051243+00:00"
+  },
+  "airbnb:8001966": {
+    "company": "airbnb",
+    "job_id": 8001966,
+    "title": "Gestionnaire principal\u00b7e de la planification des effectifs",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:17.094446+00:00"
+  },
+  "airbnb:7977821": {
+    "company": "airbnb",
+    "job_id": 7977821,
+    "title": "Global Law Enforcement Operations Enablement Manager",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:19.951657+00:00"
+  },
+  "airbnb:7997016": {
+    "company": "airbnb",
+    "job_id": 7997016,
+    "title": "Market Manager",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:21.853258+00:00"
+  },
+  "airbnb:8000413": {
+    "company": "airbnb",
+    "job_id": 8000413,
+    "title": "Market Manager - Vacation Rental",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:25.070943+00:00"
+  },
+  "airbnb:8008907": {
+    "company": "airbnb",
+    "job_id": 8008907,
+    "title": "Principal, Internal Audit and Advisory",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:27.597623+00:00"
+  },
+  "airbnb:8000973": {
+    "company": "airbnb",
+    "job_id": 8000973,
+    "title": "Responsable, Gestion des Effectifs, Op\u00e9rations",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:30.317066+00:00"
+  },
+  "airbnb:8012481": {
+    "company": "airbnb",
+    "job_id": 8012481,
+    "title": "Safety Specialist",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:32.652960+00:00"
+  },
+  "airbnb:8002310": {
+    "company": "airbnb",
+    "job_id": 8002310,
+    "title": "Supervisor, Executive Escalations",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:35.252094+00:00"
+  },
+  "airbnb:8007130": {
+    "company": "airbnb",
+    "job_id": 8007130,
+    "title": "Supervisor, Fraud Investigations",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:37.354926+00:00"
+  },
+  "databricks:8517602002": {
+    "company": "databricks",
+    "job_id": 8517602002,
+    "title": "Sr. Compensation Manager, G&A",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:39.410647+00:00"
+  },
+  "databricks:8560783002": {
+    "company": "databricks",
+    "job_id": 8560783002,
+    "title": "Staff Software Engineer, AI Native Web Platform",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:41.201967+00:00"
+  },
+  "figma:6013304004": {
+    "company": "figma",
+    "job_id": 6013304004,
+    "title": "Data Scientist, Finance",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='Phone\\nCountry*\\nPhone*')\", \"unknown_field(type=input, nearby_text='First Name*\\nLast Name*\\nEmail*\\nPhone\\nCountry*\\nPhone*\\nLocation (City)*\\nLocate me\\nResume/CV*\\nAttach\\nAttach\\nDropbox\\nGoogle D')\", \"unknown_field(type=input, nearby_text='LinkedIn Profile\\nOther Website\\nWhy do you want to join Figma?*\\n\\nPlease share 3-4 sentences on why you want to join Figma')\"]",
+    "timestamp": "2026-06-17T22:34:41.813383+00:00"
+  },
+  "figma:6084344004": {
+    "company": "figma",
+    "job_id": 6084344004,
+    "title": "Manager, Software Engineering - Storage Platform",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='Phone\\nCountry*\\nPhone*')\", \"unknown_field(type=input, nearby_text='First Name*\\nLast Name*\\nEmail*\\nPhone\\nCountry*\\nPhone*\\nLocation (City)*\\nLocate me\\nResume/CV*\\nAttach\\nAttach\\nDropbox\\nGoogle D')\", \"unknown_field(type=input, nearby_text='LinkedIn Profile\\nOther Website\\nWhy do you want to join Figma?*\\n\\nPlease share 3-4 sentences on why you want to join Figma')\"]",
+    "timestamp": "2026-06-17T22:34:42.499528+00:00"
+  },
+  "figma:6051050004": {
+    "company": "figma",
+    "job_id": 6051050004,
+    "title": "Onboarding Manager, Customer Experience (Tokyo, Japan)",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='Phone\\nCountry*\\nPhone*')\", \"unknown_field(type=input, nearby_text='First Name*\\nLast Name*\\nEmail*\\nPhone\\nCountry*\\nPhone*\\nLocation (City)*\\nLocate me\\nResume/CV\\nAttach\\nAttach\\nDropbox\\nGoogle Dr')\", \"unknown_field(type=input, nearby_text='LinkedIn Profile\\nOther Website\\nWhy do you want to join Figma?*\\n\\nPlease share 3-4 sentences on why you want to join Figma')\"]",
+    "timestamp": "2026-06-17T22:34:43.090618+00:00"
+  },
+  "figma:6050054004": {
+    "company": "figma",
+    "job_id": 6050054004,
+    "title": "Senior Solutions Consultant (Singapore)",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='Phone\\nCountry*\\nPhone*')\", \"unknown_field(type=input, nearby_text='First Name*\\nLast Name*\\nEmail*\\nPhone\\nCountry*\\nPhone*\\nLocation (City)*\\nLocate me\\nResume/CV\\nAttach\\nAttach\\nDropbox\\nGoogle Dr')\", \"unknown_field(type=input, nearby_text='LinkedIn Profile\\nOther Website\\nWhy do you want to join Figma?*\\n\\nPlease share 3-4 sentences on why you want to join Figma')\"]",
+    "timestamp": "2026-06-17T22:34:43.845633+00:00"
+  },
+  "gitlab:8581737002": {
+    "company": "gitlab",
+    "job_id": 8581737002,
+    "title": "QA Manager, Enterprise Technology and AI",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='LinkedIn Profile\\nWhat's the name you'd prefer us to use throughout the interview process?\\nPlease choose the country in w')\"]",
+    "timestamp": "2026-06-17T22:34:44.512195+00:00"
+  },
+  "gitlab:8592663002": {
+    "company": "gitlab",
+    "job_id": 8592663002,
+    "title": "Senior Director, Deal Desk",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='LinkedIn Profile\\nWhat's the name you'd prefer us to use throughout the interview process?\\nPlease choose the country in w')\"]",
+    "timestamp": "2026-06-17T22:34:45.134724+00:00"
+  },
+  "gitlab:8575108002": {
+    "company": "gitlab",
+    "job_id": 8575108002,
+    "title": "Senior Executive Business Partner to CFO ",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='LinkedIn Profile\\nWhat's the name you'd prefer us to use throughout the interview process?\\nPlease choose the country in w')\"]",
+    "timestamp": "2026-06-17T22:34:45.658839+00:00"
+  },
+  "gitlab:8588547002": {
+    "company": "gitlab",
+    "job_id": 8588547002,
+    "title": "Senior TA Operations Specialist",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='LinkedIn Profile\\nWebsite\\nLinkedIn Profile\\nWhat's the name you'd prefer us to use throughout the interview process?\\nPleas')\"]",
+    "timestamp": "2026-06-17T22:34:46.299786+00:00"
+  },
+  "robinhood:8008723": {
+    "company": "robinhood",
+    "job_id": 8008723,
+    "title": "Full Stack Software Engineer, Credit Cards & Banking",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='Phone\\nCountry*\\nPhone*')\", \"unknown_field(type=input, nearby_text='First Name*\\nLast Name*\\nEmail*\\nPhone\\nCountry*\\nPhone*\\nLocation (City)*\\nLocate me\\nResume/CV*\\nAttach\\nAttach\\nDropbox\\nGoogle D')\", \"unknown_field(type=input, nearby_text='LinkedIn Profile\\nWebsite\\nHow did you hear about this job?\\nHave you used Robinhood?\\nSelect...\\nHave you ever worked for Ro')\", \"unknown_field(type=input, nearby_text='Select...')\"]",
+    "timestamp": "2026-06-17T22:34:47.245203+00:00"
+  },
+  "scaleai:4704483005": {
+    "company": "scaleai",
+    "job_id": 4704483005,
+    "title": "Site Security Manager, Industrial Security",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='LinkedIn Profile*\\nAre you open to working in person in our Washington D.C. office 5 times a week? Please note: To start ')\"]",
+    "timestamp": "2026-06-17T22:34:47.817893+00:00"
+  },
+  "coinbase:7843712": {
+    "company": "coinbase",
+    "job_id": 7843712,
+    "title": "Analytics Engineer",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:48.202567+00:00"
+  },
+  "coinbase:7994501": {
+    "company": "coinbase",
+    "job_id": 7994501,
+    "title": "Concierge Specialist IV",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:48.668778+00:00"
+  },
+  "coinbase:7994498": {
+    "company": "coinbase",
+    "job_id": 7994498,
+    "title": "Concierge Specialist IV",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:49.154432+00:00"
+  },
+  "coinbase:8008594": {
+    "company": "coinbase",
+    "job_id": 8008594,
+    "title": "Privacy Analyst",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:49.621094+00:00"
+  },
+  "coinbase:7947120": {
+    "company": "coinbase",
+    "job_id": 7947120,
+    "title": "Senior Compliance Tech Analyst, Platform (Compliance Automation)",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:34:50.060263+00:00"
+  },
+  "coinbase:7701645": {
+    "company": "coinbase",
+    "job_id": 7701645,
+    "title": "Senior Software Engineer Infra - Compute Platform",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:40:51.971341+00:00"
+  },
+  "coinbase:8003605": {
+    "company": "coinbase",
+    "job_id": 8003605,
+    "title": "Software Engineer",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:40:52.485432+00:00"
+  },
+  "brex:8587789002": {
+    "company": "brex",
+    "job_id": 8587789002,
+    "title": "Software Engineer II, Cloud Infrastructure",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:40:54.687560+00:00"
+  },
+  "gleanwork:4663648005": {
+    "company": "gleanwork",
+    "job_id": 4663648005,
+    "title": "Designated Technical Support Engineer (EST shift hours 5:30PM - 2:30AM IST)",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-17T22:40:55.301700+00:00"
+  },
+  "cohere:f722247c-291b-44ee-af67-5159b8d5d9b9": {
+    "company": "cohere",
+    "job_id": "f722247c-291b-44ee-af67-5159b8d5d9b9",
+    "title": "Software Engineer, North for Finance",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(name=_systemfield_name, id=_systemfield_name, placeholder='Type here...', type=text)\", \"unknown_field(id=_systemfield_resume, type=file, nearby_text='Upload File\\n\\nor drag and drop here')\", \"unknown_field(name=6f5bdfa5-475b-4a28-a51c-ab3e586307f9, id=6f5bdfa5-475b-4a28-a51c-ab3e586307f9, placeholder='Type here...', type=textarea, nearby_text='Describe a production, end-user-facing system you owned end-to-end while working closely with Product and UX. What was t')\"]",
+    "timestamp": "2026-06-17T22:40:56.396575+00:00"
+  },
+  "cohere:5d31ba60-683a-4d59-8059-3f728b772a9e": {
+    "company": "cohere",
+    "job_id": "5d31ba60-683a-4d59-8059-3f728b772a9e",
+    "title": "Data Annotation Specialist, Software Engineering",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(name=_systemfield_name, id=_systemfield_name, placeholder='Type here...', type=text)\", \"unknown_field(id=_systemfield_resume, type=file, nearby_text='Upload File\\n\\nor drag and drop here')\", \"unknown_field(name=8b88c953-269f-46b4-afdc-e521c271b08b, id=8b88c953-269f-46b4-afdc-e521c271b08b, placeholder='Type here...', type=textarea, nearby_text='Which workflows have you used AI agents for (professional or personal) and from your experiences, where do agents strugg')\"]",
+    "timestamp": "2026-06-17T22:40:57.551450+00:00"
+  },
+  "cohere:4a3c3eb2-ae2e-4a86-a677-7bdecbc7d76e": {
+    "company": "cohere",
+    "job_id": "4a3c3eb2-ae2e-4a86-a677-7bdecbc7d76e",
+    "title": "Software Engineer, Agents & Automations",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(name=_systemfield_name, id=_systemfield_name, placeholder='Type here...', type=text)\", \"unknown_field(id=_systemfield_resume, type=file, nearby_text='Upload File\\n\\nor drag and drop here')\", \"unknown_field(name=b2bcea1f-7dd3-418f-b939-a9a15f904d40, id=b2bcea1f-7dd3-418f-b939-a9a15f904d40, placeholder='Type here...', type=textarea, nearby_text='Why are you interested in this role? Please reference one specific area from the job description (e.g. agent evaluation,')\"]",
+    "timestamp": "2026-06-17T22:40:58.656120+00:00"
+  },
+  "replit:657a90d2-23cc-4c86-b9ed-a21900efee0d": {
+    "company": "replit",
+    "job_id": "657a90d2-23cc-4c86-b9ed-a21900efee0d",
+    "title": "Product Engineer, Product Platform (Frontend)",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: ['If not currently in the Bay Area, are you willing to relocate near our Foster City, CA Office?', 'Are you legally authorized to work in the United States?', 'Will you now, or in the future, require sponsorship for employment visa status (e.g. H-1B visa status)?', \"unknown_field(name=90456d1d-541c-4e76-b82f-49e4840847d6, id=90456d1d-541c-4e76-b82f-49e4840847d6, placeholder='Type here...', type=textarea, nearby_text='What excites you about Replit?')\"]",
+    "timestamp": "2026-06-17T22:52:00.712513+00:00"
+  },
+  "openai:2d7f1028-ce9b-49c7-acc8-782714ca1cf4": {
+    "company": "openai",
+    "job_id": "2d7f1028-ce9b-49c7-acc8-782714ca1cf4",
+    "title": "Full Stack Software Engineer, Agent Enablement",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: ['Are you authorized to work in the country where the job is located?', 'Will you now or in the future require sponsorship for employment visa status in this country?', \"unknown_field(placeholder='Pick date...', type=text)\"]",
+    "timestamp": "2026-06-17T22:54:02.353964+00:00"
+  },
+  "openai:39a709f3-6e9e-45e9-94eb-43a1c2aaaeaf": {
+    "company": "openai",
+    "job_id": "39a709f3-6e9e-45e9-94eb-43a1c2aaaeaf",
+    "title": "Software Engineer, Computer Use & Frontier Interfaces",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: ['Are you authorized to work in the country where the job is located?', 'Will you now or in the future require sponsorship for employment visa status in this country?', \"unknown_field(placeholder='Pick date...', type=text)\"]",
+    "timestamp": "2026-06-17T22:56:05.080111+00:00"
+  },
+  "openai:915a325b-55f6-44e2-8314-34ec0d8bb2c9": {
+    "company": "openai",
+    "job_id": "915a325b-55f6-44e2-8314-34ec0d8bb2c9",
+    "title": "Software Engineer, Web Layer",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: ['Are you authorized to work in the country where the job is located?', 'Will you now or in the future require sponsorship for employment visa status in this country?', \"unknown_field(placeholder='Pick date...', type=text)\"]",
+    "timestamp": "2026-06-17T22:58:06.902195+00:00"
+  },
+  "coinbase:7967649": {
+    "company": "coinbase",
+    "job_id": 7967649,
+    "title": "Software Engineer",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: ['resume_upload_failed']",
+    "timestamp": "2026-06-17T23:15:44.461140+00:00"
   }
 }
