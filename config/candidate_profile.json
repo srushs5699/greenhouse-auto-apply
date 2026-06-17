@@ -49,13 +49,21 @@
       "product manager", "program manager", "project manager", "marketing",
       "recruiter", "recruiting", "talent acquisition", "customer success",
       "support specialist", "designer", "counsel", "attorney", "paralegal",
-      "hr business partner", "people partner", "executive assistant", "office manager"
+      "hr business partner", "people partner", "executive assistant", "office manager",
+      "engineering manager", "engineering director", "director of engineering",
+      "vp of engineering", "vp, engineering", "head of engineering",
+      "solutions architect", "solutions engineer", "sales engineer",
+      "developer advocate", "developer relations", "technical recruiter",
+      "implementation consultant", "implementation engineer",
+      "customer engineer", "field engineer", "forward deployed engineer",
+      "analytics engineer", "data engineer", "qa engineer", "test engineer",
+      "release engineer", "security engineer", "network engineer"
     ],
     "min_years_experience": 1,
     "max_years_experience": 4,
     "match_mode": "title_or_description",
     "location_filter": "all_us_remote_hybrid_onsite",
-    "lookback_minutes": 60
+    "lookback_minutes": 10080
   },
 
   "notification": {

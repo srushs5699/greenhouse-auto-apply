@@ -21,12 +21,25 @@ DEFAULT_TITLE_EXCLUDES = [
     "recruiter", "recruiting", "talent acquisition", "customer success",
     "support specialist", "designer", "counsel", "attorney", "paralegal",
     "hr business partner", "people partner", "executive assistant", "office manager",
+    # Engineering-ADJACENT roles: these JDs are stack-keyword-dense (mention
+    # Kubernetes, Python, distributed systems, etc. routinely) but the role
+    # itself is not hands-on IC engineering, so the description signal-count
+    # fallback below can't reliably filter them - they need to be excluded
+    # by title instead. Added after "Engineering Manager, Growth" and
+    # "Senior Solutions Architect, Global SI" both slipped through.
+    "engineering manager", "engineering director", "director of engineering",
+    "vp of engineering", "vp, engineering", "head of engineering",
+    "solutions architect", "solutions engineer", "sales engineer",
+    "developer advocate", "developer relations", "technical recruiter",
+    "implementation consultant", "implementation engineer",
+    "customer engineer", "field engineer", "forward deployed engineer",
+    "analytics engineer", "data engineer", "qa engineer", "test engineer",
+    "release engineer", "security engineer", "network engineer",
 ]
 
 # When the title alone doesn't clearly indicate an engineering role, require at
 # least this many distinct signal keywords in the description before matching -
 # a single incidental mention isn't enough signal on its own.
-MIN_DESCRIPTION_SIGNAL_HITS = 2
 
 
 def strip_html(raw_html: str) -> str:
@@ -50,6 +63,23 @@ def is_recently_posted(job: dict, lookback_minutes: int) -> bool:
     return posted_at >= cutoff
 
 
+# Generic words that indicate the role is hands-on IC engineering, independent
+# of your specific role_keywords list. Used as a gate: if a title contains
+# none of these, we don't trust description-keyword hits alone to qualify it -
+# real engineering descriptions almost always have an unambiguous title, while
+# many unrelated roles (Concierge Specialist, Compensation Manager, etc.) still
+# pick up 2+ incidental stack-keyword hits from templated "about our team" copy.
+GENERIC_ENGINEERING_TITLE_SIGNALS = [
+    "engineer", "engineering", "developer", "swe", "mts",
+    "member of technical staff", "programmer",
+]
+
+# Raised from 2 - even with the title gate above, require a higher bar so a
+# single boilerplate "we use Python and Kubernetes" sentence can't qualify an
+# ambiguous title on its own.
+MIN_DESCRIPTION_SIGNAL_HITS = 3
+
+
 def matches_role(job: dict, targeting: dict) -> bool:
     title = (job.get("title") or "").lower()
     description = strip_html(job.get("content", "")).lower()
@@ -63,14 +93,25 @@ def matches_role(job: dict, targeting: dict) -> bool:
     mode = targeting.get("match_mode", "title_or_description")
 
     title_hit = any(k in title for k in role_keywords)
+    generic_engineering_title = any(sig in title for sig in GENERIC_ENGINEERING_TITLE_SIGNALS)
 
     if mode == "title_only":
         keyword_match = title_hit
     elif title_hit:
         keyword_match = True
+    elif not generic_engineering_title:
+        # Title doesn't contain your specific role keywords AND doesn't even
+        # look like an engineering title in the first place - don't fall
+        # through to description matching at all. This is what was letting
+        # "Concierge Specialist IV", "Market Manager", "Safety Specialist"
+        # etc. through: their JDs incidentally mention Python/Kubernetes/
+        # backend in boilerplate company copy, clearing the old 2-hit bar
+        # despite the role having nothing to do with engineering.
+        keyword_match = False
     else:
-        # No clear engineering title - require multiple distinct signal hits,
-        # not just one incidental mention, before treating this as a match.
+        # Title looks engineering-flavored but didn't hit your specific
+        # role_keywords (e.g. "Engineer I", "Member of Technical Staff") -
+        # use description signal hits to disambiguate, with a higher bar.
         signal_hit_count = sum(1 for k in signal_keywords if k in description)
         keyword_match = signal_hit_count >= MIN_DESCRIPTION_SIGNAL_HITS
 

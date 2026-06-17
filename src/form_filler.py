@@ -25,6 +25,21 @@ LABEL_ALIASES = {
     "cover_letter": ["Cover Letter"],
 }
 
+# Ashby renders its own standard fields using a stable "_systemfield_*" name/id
+# convention rather than Greenhouse-style <label> text, so the label-based
+# aliases above don't match them. These selectors are Ashby's documented
+# system field naming pattern and apply across all Ashby-hosted boards.
+# https://developers.ashbyhq.com - Ashby job application form fields use
+# _systemfield_name, _systemfield_email, _systemfield_phone,
+# _systemfield_location, _systemfield_resume as consistent identifiers.
+ASHBY_SYSTEMFIELD_SELECTORS = {
+    "full_name": '[name="_systemfield_name"], #_systemfield_name',
+    "email": '[name="_systemfield_email"], #_systemfield_email',
+    "phone": '[name="_systemfield_phone"], #_systemfield_phone',
+    "location": '[name="_systemfield_location"], #_systemfield_location',
+    "resume": '[name="_systemfield_resume"], #_systemfield_resume, [id="_systemfield_resume"]',
+}
+
 # Keyword -> profile field, used for screening questions whose labels vary per company
 SCREENING_KEYWORD_MAP = [
     (["authorized to work"], "authorized_to_work_us"),
@@ -38,6 +53,95 @@ SCREENING_KEYWORD_MAP = [
 EEO_KEYWORDS = ["race", "ethnicity", "gender", "veteran", "disability", "pronoun", "sexual orientation"]
 DECLINE_OPTION_TEXTS = ["Decline to answer", "I don't wish to answer", "Prefer not to answer",
                          "I do not wish to disclose"]
+
+
+def _try_fill_ashby_systemfield(page: Page, selector: str, value: str) -> bool:
+    """Fill an Ashby _systemfield_* input/textarea by CSS selector. Returns True on success."""
+    try:
+        field = page.locator(selector)
+        if field.count() > 0:
+            field.first.fill(str(value))
+            return True
+    except Exception:
+        pass
+    return False
+
+
+def _try_upload_resume(page: Page, resume_path: str) -> bool:
+    """
+    Try Ashby's named resume field first (works even when it's wrapped in a
+    drag-and-drop UI, since the underlying <input type="file"> still accepts
+    set_input_files directly regardless of how it's styled). Falls back to
+    the first generic file input on the page (the Greenhouse pattern, where
+    resume is virtually always the first file input).
+    """
+    try:
+        ashby_resume = page.locator(ASHBY_SYSTEMFIELD_SELECTORS["resume"])
+        if ashby_resume.count() > 0:
+            ashby_resume.first.set_input_files(resume_path)
+            return True
+    except Exception:
+        pass
+    try:
+        file_inputs = page.locator('input[type="file"]')
+        if file_inputs.count() > 0:
+            file_inputs.first.set_input_files(resume_path)
+            return True
+    except Exception:
+        pass
+    return False
+
+
+def _try_answer_yes_no_buttons(page: Page, label_text: str, answer: str) -> bool:
+    """
+    Ashby renders yes/no screening questions as a pair of plain <button>
+    elements with a hidden checkbox input, not a real <select> or text
+    <input>, so neither .fill() nor .select_option() can touch them:
+
+        <label for="...">Question text</label>
+        <div class="_container..._yesno_...">
+          <button class="_option...">Yes</button>
+          <button class="_option...">No</button>
+          <input type="checkbox" tabindex="-1" name="...">
+        </div>
+
+    The label's "for" attribute doesn't point at either button (it points at
+    the hidden checkbox), so get_by_label() can't find them either. Instead,
+    locate the <label> by its exact text, walk up to its immediate field
+    container, then click the <button> whose own text matches the answer.
+    """
+    try:
+        label = page.locator("label").get_by_text(label_text, exact=True)
+        if label.count() == 0:
+            return False
+
+        field_entry = label.first.locator(
+            "xpath=ancestor::div[contains(@class, '_fieldEntry')][1]"
+        )
+        if field_entry.count() == 0:
+            field_entry = label.first.locator("xpath=..")
+
+        button = field_entry.get_by_role("button", name=answer, exact=True)
+        if button.count() == 0:
+            button = field_entry.get_by_text(answer, exact=True)
+        if button.count() > 0:
+            button.first.click()
+            # Verify the click actually registered. Ashby's hidden checkbox
+            # for this field type has no 'required' HTML attribute (Ashby
+            # validates it via its own JS at submit time), so the generic
+            # catch-all required-field scan elsewhere in this file can't
+            # detect a silently-failed click here. Check explicitly instead
+            # of assuming the click worked.
+            try:
+                checkbox = field_entry.locator('input[type="checkbox"]')
+                if checkbox.count() > 0:
+                    return checkbox.first.is_checked()
+            except Exception:
+                pass
+            return True
+    except Exception:
+        pass
+    return False
 
 
 def _try_fill_by_label(page: Page, label_options: list[str], value: str) -> bool:
@@ -77,6 +181,52 @@ def _try_select_decline(page: Page, label_substring: str) -> bool:
         return False
 
 
+def _describe_unmatched_field(el) -> str:
+    """
+    Build a human-readable descriptor for a required field we couldn't fill,
+    so flagged_manual_review output tells you *what* the field is instead of
+    just 'unknown_field'. Tries, in order: name/id attrs, aria-label,
+    placeholder, a <label for=...> match, and finally the visible text of the
+    nearest ancestor container (covers custom-rendered widgets with no
+    standard label association).
+    """
+    try:
+        name_attr = el.get_attribute("name")
+        id_attr = el.get_attribute("id")
+        aria_label = el.get_attribute("aria-label")
+        placeholder = el.get_attribute("placeholder")
+        field_type = el.get_attribute("type") or el.evaluate("el => el.tagName.toLowerCase()")
+
+        nearby_text = ""
+        try:
+            nearby_text = el.evaluate(
+                """el => {
+                    const container = el.closest('.field, .application-question, fieldset, div[class*="question"]') || el.parentElement;
+                    if (!container) return '';
+                    return container.innerText.trim().slice(0, 120);
+                }"""
+            )
+        except Exception:
+            pass
+
+        parts = []
+        if name_attr:
+            parts.append(f"name={name_attr}")
+        if id_attr:
+            parts.append(f"id={id_attr}")
+        if aria_label:
+            parts.append(f"aria-label='{aria_label}'")
+        if placeholder:
+            parts.append(f"placeholder='{placeholder}'")
+        parts.append(f"type={field_type}")
+        if nearby_text:
+            parts.append(f"nearby_text='{nearby_text}'")
+
+        return "unknown_field(" + ", ".join(parts) + ")" if parts else "unknown_field(no attributes found)"
+    except Exception as e:
+        return f"unknown_field(descriptor_error: {e})"
+
+
 def apply_to_job(browser, job: dict, profile: dict, dry_run: bool = True) -> dict:
     """
     Returns {"status": "applied" | "dry_run_preview" | "flagged_manual_review" | "failed",
@@ -90,20 +240,26 @@ def apply_to_job(browser, job: dict, profile: dict, dry_run: bool = True) -> dic
     try:
         page.goto(job["absolute_url"], timeout=30000)
 
-        _try_fill_by_label(page, LABEL_ALIASES["first_name"], personal["full_name"].split()[0])
-        _try_fill_by_label(page, LABEL_ALIASES["last_name"], " ".join(personal["full_name"].split()[1:]) or "Shinde")
-        _try_fill_by_label(page, LABEL_ALIASES["email"], personal["email"])
-        _try_fill_by_label(page, LABEL_ALIASES["phone"], personal["phone"])
+        # Try Ashby's combined full-name systemfield first; if that's not
+        # present (i.e. this is a Greenhouse-style form with separate
+        # First/Last Name fields), fall back to the label-based approach.
+        if not _try_fill_ashby_systemfield(page, ASHBY_SYSTEMFIELD_SELECTORS["full_name"], personal["full_name"]):
+            _try_fill_by_label(page, LABEL_ALIASES["first_name"], personal["full_name"].split()[0])
+            _try_fill_by_label(page, LABEL_ALIASES["last_name"], " ".join(personal["full_name"].split()[1:]) or "Shinde")
+
+        if not _try_fill_ashby_systemfield(page, ASHBY_SYSTEMFIELD_SELECTORS["email"], personal["email"]):
+            _try_fill_by_label(page, LABEL_ALIASES["email"], personal["email"])
+
+        if not _try_fill_ashby_systemfield(page, ASHBY_SYSTEMFIELD_SELECTORS["phone"], personal["phone"]):
+            _try_fill_by_label(page, LABEL_ALIASES["phone"], personal["phone"])
+
         _try_fill_by_label(page, LABEL_ALIASES["linkedin"], personal["linkedin_url"])
         _try_fill_by_label(page, LABEL_ALIASES["github"], personal["github_url"])
         _try_fill_by_label(page, LABEL_ALIASES["portfolio"], personal["portfolio_url"])
 
-        # Resume upload - first file input on a Greenhouse form is virtually always resume
-        try:
-            file_inputs = page.locator('input[type="file"]')
-            if file_inputs.count() > 0:
-                file_inputs.first.set_input_files(personal["resume_path"])
-        except Exception:
+        # Resume upload - tries Ashby's named field first, then falls back to
+        # the first generic file input (the Greenhouse pattern).
+        if not _try_upload_resume(page, personal["resume_path"]):
             unmatched_required.append("resume_upload_failed")
 
         # Cover letter (templated, lightly customized)
@@ -134,7 +290,8 @@ def apply_to_job(browser, job: dict, profile: dict, dry_run: bool = True) -> dic
                         try:
                             page.get_by_label(label_text, exact=True).first.select_option(label=answer)
                         except Exception:
-                            unmatched_required.append(label_text.strip())
+                            if not _try_answer_yes_no_buttons(page, label_text, answer):
+                                unmatched_required.append(label_text.strip())
 
         # Check for any REQUIRED inputs still empty that we haven't accounted for
         required_inputs = page.locator("input[required], select[required], textarea[required]")
@@ -142,9 +299,9 @@ def apply_to_job(browser, job: dict, profile: dict, dry_run: bool = True) -> dic
             el = required_inputs.nth(i)
             try:
                 if el.input_value().strip() == "":
-                    name_attr = el.get_attribute("name") or el.get_attribute("id") or "unknown_field"
-                    if name_attr not in unmatched_required:
-                        unmatched_required.append(name_attr)
+                    descriptor = _describe_unmatched_field(el)
+                    if descriptor not in unmatched_required:
+                        unmatched_required.append(descriptor)
             except Exception:
                 continue
 
