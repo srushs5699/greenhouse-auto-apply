@@ -1,0 +1,58 @@
+{
+  "dry_run": true,
+  "_dry_run_note": "Keep this true until you've verified the form filler works correctly on real postings. true = fills the form but never clicks submit. Override per-run with: python src/main.py --live",
+
+  "personal": {
+    "full_name": "Srushti Shinde",
+    "email": "srushtishinde12@gmail.com",
+    "phone": "+16082172116",
+    "location": "San Jose, CA",
+    "linkedin_url": "https://www.linkedin.com/in/srushtisanjayshinde/",
+    "github_url": "https://github.com/srushs5699",
+    "portfolio_url": "https://srushs5699.github.io/",
+    "resume_path": "config/Srushti_Shinde_Resume.pdf"
+  },
+
+  "screening_answers": {
+    "authorized_to_work_us": true,
+    "requires_sponsorship_now_or_future": true,
+    "sponsorship_detail_note": "Authorized to work; will require employer sponsorship (e.g. H-1B) in the future.",
+    "notice_period": "Immediately available",
+    "willing_to_relocate": true,
+    "salary_expectation": "$120,000 minimum",
+    "years_of_experience": 4
+  },
+
+  "eeo_defaults": {
+    "_comment": "Applied to voluntary demographic/EEO questions (race, gender, veteran, disability). Default is to decline. Change only if you want to disclose.",
+    "default_response": "decline_to_answer"
+  },
+
+  "cover_letter": {
+    "mode": "short_template",
+    "template": "I'm excited to apply for the {job_title} role at {company_name}. With 4+ years building distributed backend systems and AI/LLM-integrated pipelines (RAG, vector search, event-driven architecture) across Java, Python, and Go, I believe my experience scaling systems to 50K+ events/sec and cutting latency 50-70% would translate well to this role. I'd welcome the chance to discuss further."
+  },
+
+  "targeting": {
+    "role_keywords": [
+      "Backend Engineer", "Backend Software Engineer", "Software Engineer", "Software Engineer II",
+      "Software Developer", "Platform Engineer", "AI Engineer", "Machine Learning Engineer",
+      "Infrastructure Engineer", "Distributed Systems Engineer"
+    ],
+    "signal_keywords_in_description": [
+      "backend", "distributed systems", "microservices", "Kafka", "gRPC", "RAG",
+      "LangChain", "LLM", "vector search", "pgvector", "Pinecone", "OpenAI API",
+      "event-driven", "Spring Boot", "Kubernetes", "Python", "Java", "Go"
+    ],
+    "min_years_experience": 1,
+    "max_years_experience": 4,
+    "match_mode": "title_or_description",
+    "location_filter": "all_us_remote_hybrid_onsite",
+    "lookback_minutes": 60
+  },
+
+  "notification": {
+    "channel": "email",
+    "to_address": "srushtishinde12@gmail.com"
+  }
+}

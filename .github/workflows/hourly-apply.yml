@@ -1,0 +1,35 @@
+name: Hourly Greenhouse Auto-Apply
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # every hour, on the hour (UTC)
+  workflow_dispatch: {}     # lets you trigger it manually from the Actions tab too
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+
+      - name: Run pipeline
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python src/main.py
+
+      - name: Commit updated state back to repo
+        run: |
+          git config user.name "auto-apply-bot"
+          git config user.email "actions@github.com"
+          git add data/applied_jobs.json
+          git diff --staged --quiet || git commit -m "Update applied jobs log [skip ci]"
+          git push

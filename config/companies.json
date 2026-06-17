@@ -1,0 +1,27 @@
+{
+  "_comment": "board_token is the slug in job-boards.greenhouse.io/{board_token} or boards.greenhouse.io/{board_token}. Run validate_boards.py to check which of these resolve - invalid ones get logged to data/invalid_boards.json so you can remove/replace them.",
+  "companies": [
+    "anthropic",
+    "stripe",
+    "airbnb",
+    "databricks",
+    "figma",
+    "gitlab",
+    "robinhood",
+    "scaleai",
+    "notion",
+    "perplexityai",
+    "pinecone",
+    "huggingface",
+    "cohere",
+    "plaid",
+    "coinbase",
+    "brex",
+    "ramp",
+    "affirm",
+    "rippling",
+    "doordash",
+    "instacart",
+    "asana"
+  ]
+}
