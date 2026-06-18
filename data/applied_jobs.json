@@ -486,5 +486,21 @@
     "status": "dry_run_preview",
     "detail": "Form filled, submit NOT clicked (dry_run=True).",
     "timestamp": "2026-06-18T07:30:29.284705+00:00"
+  },
+  "airbnb:8014904": {
+    "company": "airbnb",
+    "job_id": 8014904,
+    "title": "Senior Machine Learning Engineer, Customer Support Engineering",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: ['resume_upload_failed: no input[type=file] found on page (Ashby attempt: None)']",
+    "timestamp": "2026-06-18T18:01:22.442218+00:00"
+  },
+  "figma:6092906004": {
+    "company": "figma",
+    "job_id": 6092906004,
+    "title": "Manager, Software Engineering - Payload",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='First Name*\\nLast Name*\\nEmail*\\nPhone\\nCountry*\\n+1\\nPhone*\\nLocation (City)*\\nLocate me\\nResume/CV*')\", \"unknown_field(type=input, nearby_text='LinkedIn Profile\\nOther Website\\nWhy do you want to join Figma?*\\n\\nPlease share 3-4 sentences on why you want to join Figma')\"]",
+    "timestamp": "2026-06-18T18:01:23.901712+00:00"
   }
 }
