@@ -454,5 +454,29 @@
     "status": "flagged_manual_review",
     "detail": "Unmatched required fields: ['resume_upload_failed']",
     "timestamp": "2026-06-17T23:15:44.461140+00:00"
+  },
+  "coinbase:7366208": {
+    "company": "coinbase",
+    "job_id": 7366208,
+    "title": "Senior Staff Software Engineer - Blockchain Platform",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: ['resume_upload_failed: no input[type=file] found on page (Ashby attempt: None)']",
+    "timestamp": "2026-06-18T01:08:56.330229+00:00"
+  },
+  "openai:5ebd5f66-75db-4a96-8d39-babc14f1c582": {
+    "company": "openai",
+    "job_id": "5ebd5f66-75db-4a96-8d39-babc14f1c582",
+    "title": "Full Stack Software Engineer, Codex",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(placeholder='Pick date...', type=text)\"]",
+    "timestamp": "2026-06-18T01:10:58.535460+00:00"
+  },
+  "openai:39e06ef9-5e62-425d-81e2-e8690188011f": {
+    "company": "openai",
+    "job_id": "39e06ef9-5e62-425d-81e2-e8690188011f",
+    "title": "Full Stack Software Engineer, ChatGPT Finances",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(placeholder='Pick date...', type=text)\"]",
+    "timestamp": "2026-06-18T01:13:00.150196+00:00"
   }
 }
