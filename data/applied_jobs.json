@@ -478,5 +478,13 @@
     "status": "flagged_manual_review",
     "detail": "Unmatched required fields: [\"unknown_field(placeholder='Pick date...', type=text)\"]",
     "timestamp": "2026-06-18T01:13:00.150196+00:00"
+  },
+  "scaleai:4706566005": {
+    "company": "scaleai",
+    "job_id": 4706566005,
+    "title": "Software Engineer, Identity",
+    "status": "dry_run_preview",
+    "detail": "Form filled, submit NOT clicked (dry_run=True).",
+    "timestamp": "2026-06-18T07:30:29.284705+00:00"
   }
 }
