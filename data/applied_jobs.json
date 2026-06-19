@@ -502,5 +502,13 @@
     "status": "flagged_manual_review",
     "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='First Name*\\nLast Name*\\nEmail*\\nPhone\\nCountry*\\n+1\\nPhone*\\nLocation (City)*\\nLocate me\\nResume/CV*')\", \"unknown_field(type=input, nearby_text='LinkedIn Profile\\nOther Website\\nWhy do you want to join Figma?*\\n\\nPlease share 3-4 sentences on why you want to join Figma')\"]",
     "timestamp": "2026-06-18T18:01:23.901712+00:00"
+  },
+  "cohere:732c05f5-a9ec-43a3-9ae4-3ec7f7630fff": {
+    "company": "cohere",
+    "job_id": "732c05f5-a9ec-43a3-9ae4-3ec7f7630fff",
+    "title": "Software Engineer, Adoption",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(name=_systemfield_name, id=_systemfield_name, placeholder='Type here...', type=text)\", \"unknown_field(name=_systemfield_email, id=_systemfield_email, placeholder='hello@example.com...', type=email)\", \"unknown_field(id=_systemfield_resume, type=file, nearby_text='Upload File\\n\\nor drag and drop here')\", \"unknown_field(name=11dd8c44-3cab-4389-8bcb-a01330981fe2, id=11dd8c44-3cab-4389-8bcb-a01330981fe2, placeholder='Type here...', type=text)\", \"unknown_field(name=a7c8df0d-b87f-442f-bafb-f590078bf1e7, id=a7c8df0d-b87f-442f-bafb-f590078bf1e7, placeholder='Type here...', type=textarea, nearby_text='What aspect of improving a CI pipeline for a system combining LLM inference, search indexing, and multi-service file sto')\"]",
+    "timestamp": "2026-06-19T11:16:21.974136+00:00"
   }
 }
