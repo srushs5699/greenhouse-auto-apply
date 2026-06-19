@@ -510,5 +510,13 @@
     "status": "flagged_manual_review",
     "detail": "Unmatched required fields: [\"unknown_field(name=_systemfield_name, id=_systemfield_name, placeholder='Type here...', type=text)\", \"unknown_field(name=_systemfield_email, id=_systemfield_email, placeholder='hello@example.com...', type=email)\", \"unknown_field(id=_systemfield_resume, type=file, nearby_text='Upload File\\n\\nor drag and drop here')\", \"unknown_field(name=11dd8c44-3cab-4389-8bcb-a01330981fe2, id=11dd8c44-3cab-4389-8bcb-a01330981fe2, placeholder='Type here...', type=text)\", \"unknown_field(name=a7c8df0d-b87f-442f-bafb-f590078bf1e7, id=a7c8df0d-b87f-442f-bafb-f590078bf1e7, placeholder='Type here...', type=textarea, nearby_text='What aspect of improving a CI pipeline for a system combining LLM inference, search indexing, and multi-service file sto')\"]",
     "timestamp": "2026-06-19T11:16:21.974136+00:00"
+  },
+  "anthropic:5271380008": {
+    "company": "anthropic",
+    "job_id": 5271380008,
+    "title": "Research Engineer, Domain Scaling",
+    "status": "flagged_manual_review",
+    "detail": "Unmatched required fields: [\"unknown_field(type=input, nearby_text='(Optional) Personal Preferences\\n\\nHow do you pronounce your name?\\n\\nWebsite\\nAre you open to working in-person in one of ou')\"]",
+    "timestamp": "2026-06-19T19:30:43.592250+00:00"
   }
 }
